@@ -13,19 +13,19 @@ import java.util.List;
 public abstract class InstrumentReservationMapper {
 
     @Mappings({
-            @Mapping(target = "employeeId", source = "instrumentReservation.employee.id"),
-            @Mapping(target = "employeeName", source = "instrumentReservation.employee.name"),
-            @Mapping(target = "employeeSurname", source = "instrumentReservation.employee.surname"),
-            @Mapping(target = "employeeType", source = "instrumentReservation.employee.type"),
-            @Mapping(target = "instrumentId", source = "instrumentReservation.instrument.id"),
-            @Mapping(target = "serialNumber", source = "instrumentReservation.instrument.serialNumber"),
-            @Mapping(target = "instrumentType", source = "instrumentReservation.instrument.type")
+            @Mapping(target = "employeeId", source = "employee.id"),
+            @Mapping(target = "employeeName", source = "employee.name"),
+            @Mapping(target = "employeeSurname", source = "employee.surname"),
+            @Mapping(target = "employeeType", source = "employee.type"),
+            @Mapping(target = "instrumentId", source = "instrument.id"),
+            @Mapping(target = "serialNumber", source = "instrument.serialNumber"),
+            @Mapping(target = "instrumentType", source = "instrument.type")
     })
     public abstract InstrumentReservationDTO toInstrumentReservationDTO(InstrumentReservation instrumentReservation);
 
     @Mappings({
-            @Mapping(target = "employeeId", source = "instrumentReservation.employee.id"),
-            @Mapping(target = "instrumentId",source = "instrumentReservation.instrument.id")
+            @Mapping(target = "employeeId", source = "employee.id"),
+            @Mapping(target = "instrumentId",source = "instrument.id")
     })
     public abstract InstrumentReservationPostDTO toInstrumentReservationPostDTO(InstrumentReservation instrumentReservation);
 

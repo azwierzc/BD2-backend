@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.time.LocalDateTime.now;
+import static java.util.stream.Collectors.toList;
+
 @Service
 @RequiredArgsConstructor
 public class RoomReservationService {
@@ -19,7 +22,9 @@ public class RoomReservationService {
     }
 
     public List<RoomReservation> getAllRoomReservations() {
-        return repository.findAll();
+        return repository.findAllOrderByStartTimestamp().stream()
+                .filter(reservation -> reservation.getEndTimestamp().isAfter(now()))
+                .collect(toList());
     }
 
     public RoomReservation saveRoomReservation(RoomReservation roomReservation) {

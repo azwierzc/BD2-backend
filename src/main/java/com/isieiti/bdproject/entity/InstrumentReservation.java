@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Data
@@ -13,7 +15,7 @@ import static javax.persistence.CascadeType.ALL;
 public class InstrumentReservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(name = "start_timestamp")
@@ -22,11 +24,11 @@ public class InstrumentReservation {
     @Column(name = "end_timestamp")
     private LocalDateTime endTimestamp;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade = ALL, fetch = EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne
+    @ManyToOne(cascade = ALL, fetch = EAGER)
     @JoinColumn(name = "instrument_id")
     private Instrument instrument;
 }
