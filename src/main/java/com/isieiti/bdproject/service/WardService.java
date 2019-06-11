@@ -5,6 +5,7 @@ import com.isieiti.bdproject.exception.ResourceNotFoundException;
 import com.isieiti.bdproject.repository.WardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,10 +15,12 @@ public class WardService {
 
     private final WardRepository repository;
 
+    @Transactional(readOnly = true)
     public List<Ward> getAllWards() {
         return repository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Ward findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ward", "id", id));
     }

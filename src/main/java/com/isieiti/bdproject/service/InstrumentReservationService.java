@@ -5,11 +5,9 @@ import com.isieiti.bdproject.exception.ResourceNotFoundException;
 import com.isieiti.bdproject.repository.InstrumentReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.time.LocalDateTime.now;
 import static java.util.stream.Collectors.toList;
@@ -20,10 +18,12 @@ public class InstrumentReservationService {
 
     private final InstrumentReservationRepository repository;
 
+    @Transactional(readOnly = true)
     public InstrumentReservation findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Instrument Reservation", "id", id));
     }
 
+    @Transactional(readOnly = true)
     public List<InstrumentReservation> getAllInstrumentReservations() {
         return repository.findAllOrderByStartTimestamp().stream()
                 .filter(reservation -> reservation.getEndTimestamp().isAfter(now()))
@@ -35,6 +35,7 @@ public class InstrumentReservationService {
         return repository.save(instrumentReservation);
     }
 
+    @Transactional
     public void deleteInstrumentReservation(Long id) {
         repository.deleteById(id);
     }
