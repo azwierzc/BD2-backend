@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -45,7 +46,7 @@ public class ReportController {
     }
 
     @PostMapping
-    public ReportPostDTO addReport(@RequestBody ReportPostDTO reportPostDTO) {
+    public ReportPostDTO addReport(@RequestBody @Valid ReportPostDTO reportPostDTO) {
         Employee employee = employeeService.getSingleEmployee(reportPostDTO.getEmployeeId());
         Report report = mapper.toReport(reportPostDTO);
         report.setEmployee(employee);

@@ -4,6 +4,7 @@ import com.isieiti.bdproject.enums.MedicalEmployeeRole;
 import com.isieiti.bdproject.enums.ReportType;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,6 +17,8 @@ public class ReportDTO {
     private boolean closed;
 
     private String content;
+
+    private Long employeeId;
 
     private String employeeName;
 
