@@ -12,7 +12,6 @@ public class ReportPostDTO {
 
     private Long id;
 
-    @NotNull
     private LocalDateTime creationTimestamp;
 
     @NotBlank
