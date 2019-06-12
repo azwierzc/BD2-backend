@@ -17,10 +17,8 @@ public class RoomReservationPostDTO {
     @NotNull
     private LocalDateTime endTimestamp;
 
-    @NotNull
     private Long employeeId;
 
-    @NotNull
     private Long roomId;
 }
 

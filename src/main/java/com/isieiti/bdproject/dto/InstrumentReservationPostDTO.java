@@ -16,9 +16,7 @@ public class InstrumentReservationPostDTO {
     @NotNull
     private LocalDateTime endTimestamp;
 
-    @NotNull
     private Long employeeId;
 
-    @NotNull
     private Long instrumentId;
 }
