@@ -55,7 +55,7 @@ public class InstrumentReservationController {
         return null;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteInstrumentReservation(@PathVariable Long id) {
         instrumentReservationService.deleteInstrumentReservation(id);
     }
