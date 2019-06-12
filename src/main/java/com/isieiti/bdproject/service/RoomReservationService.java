@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
@@ -32,8 +33,10 @@ public class RoomReservationService {
 
     @Transactional
     public RoomReservation saveRoomReservation(RoomReservation roomReservation) {
-        roomReservation.getEndTimestamp().plusHours(2);
-        roomReservation.getStartTimestamp().plusHours(2);
+        LocalDateTime startTime = roomReservation.getStartTimestamp();
+        LocalDateTime endTime = roomReservation.getEndTimestamp();
+        roomReservation.setStartTimestamp(startTime.plusHours(2));
+        roomReservation.setEndTimestamp(endTime.plusHours(2));
         return repository.save(roomReservation);
     }
 

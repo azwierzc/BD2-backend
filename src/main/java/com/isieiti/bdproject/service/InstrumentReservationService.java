@@ -33,8 +33,10 @@ public class InstrumentReservationService {
 
     @Transactional
     public InstrumentReservation postInstrumentReservation(InstrumentReservation instrumentReservation) {
-        instrumentReservation.getEndTimestamp().plusHours(2);
-        instrumentReservation.getStartTimestamp().plusHours(2);
+        LocalDateTime startTime = instrumentReservation.getStartTimestamp();
+        LocalDateTime endTime = instrumentReservation.getEndTimestamp();
+        instrumentReservation.setStartTimestamp(startTime.plusHours(2));
+        instrumentReservation.setEndTimestamp(endTime.plusHours(2));
         return repository.save(instrumentReservation);
     }
 
