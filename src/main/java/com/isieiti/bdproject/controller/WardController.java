@@ -1,6 +1,7 @@
 package com.isieiti.bdproject.controller;
 
 import com.isieiti.bdproject.dto.WardDTO;
+import com.isieiti.bdproject.entity.Ward;
 import com.isieiti.bdproject.mapper.WardMapper;
 import com.isieiti.bdproject.service.WardService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,13 @@ public class WardController {
 
     @PostMapping
     public WardDTO addWard(@RequestBody WardDTO wardDTO) {
+        List<Ward> wards = service.getAllWards();
+        for(Ward ward : wards){
+
+            if(ward.getName().equals(wardDTO.getName())){
+                return null;
+            }
+        }
         return mapper.toWardDTO(service.addWard(mapper.toWard(wardDTO)));
     }
 

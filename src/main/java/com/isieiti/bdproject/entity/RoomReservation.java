@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -23,11 +24,11 @@ public class RoomReservation {
     @Column(name = "end_timestamp")
     private LocalDateTime endTimestamp;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "room_id")
     private Room room;
 

@@ -4,6 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Data
@@ -24,4 +28,7 @@ public class Instrument {
 
     @Column(name = "check_period")
     private LocalDateTime checkPeriod;
+
+    @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "instrument", fetch = LAZY)
+    private List<InstrumentReservation> instrumentReservations;
 }

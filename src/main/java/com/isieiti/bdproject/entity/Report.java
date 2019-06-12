@@ -30,7 +30,7 @@ public class Report {
     @Enumerated(STRING)
     private ReportType type;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 }

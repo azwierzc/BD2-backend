@@ -24,11 +24,11 @@ public class InstrumentReservation {
     @Column(name = "end_timestamp")
     private LocalDateTime endTimestamp;
 
-    @ManyToOne(cascade = ALL, fetch = EAGER)
+    @ManyToOne()
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne(cascade = ALL, fetch = EAGER)
+    @ManyToOne()
     @JoinColumn(name = "instrument_id")
     private Instrument instrument;
 }
