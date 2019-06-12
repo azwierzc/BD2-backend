@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
@@ -25,8 +26,8 @@ public class InstrumentReservationService {
 
     @Transactional(readOnly = true)
     public List<InstrumentReservation> getAllInstrumentReservations() {
-        return repository.findAllOrderByStartTimestamp().stream()
-                .filter(reservation -> reservation.getEndTimestamp().isAfter(now()))
+        return repository.findAllByOrderByStartTimestamp().stream()
+                .filter(reservation -> reservation.getEndTimestamp().isAfter(LocalDateTime.now()))
                 .collect(toList());
     }
 

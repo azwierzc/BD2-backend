@@ -8,7 +8,11 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface WardMapper {
+
     WardDTO toWardDTO(Ward ward);
 
     List<WardDTO> toWardDTOs(List<Ward> wardList);
+
+    Ward toWard(WardDTO wardDTO);
+
 }

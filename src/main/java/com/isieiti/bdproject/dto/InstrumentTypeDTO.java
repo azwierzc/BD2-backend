@@ -3,7 +3,7 @@ package com.isieiti.bdproject.dto;
 import lombok.Data;
 
 @Data
-public class WardDTO {
+public class InstrumentTypeDTO {
 
     private Long id;
 

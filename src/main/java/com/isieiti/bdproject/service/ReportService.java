@@ -1,6 +1,7 @@
 package com.isieiti.bdproject.service;
 
 import com.isieiti.bdproject.entity.Report;
+import com.isieiti.bdproject.enums.ReportType;
 import com.isieiti.bdproject.exception.ResourceNotFoundException;
 import com.isieiti.bdproject.repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,11 @@ public class ReportService {
     @Transactional(readOnly = true)
     public List<Report> getAllReports() {
         return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Report> getAllReportsByType(ReportType type, boolean closed) {
+        return repository.findAllByTypeAndClosedOrderByCreationTimestamp(type, closed);
     }
 
     @Transactional
