@@ -4,6 +4,7 @@ import com.isieiti.bdproject.dto.ReportDTO;
 import com.isieiti.bdproject.dto.ReportPostDTO;
 import com.isieiti.bdproject.entity.Employee;
 import com.isieiti.bdproject.entity.Report;
+import com.isieiti.bdproject.enums.ReportType;
 import com.isieiti.bdproject.mapper.ReportMapper;
 import com.isieiti.bdproject.service.EmployeeService;
 import com.isieiti.bdproject.service.ReportService;
@@ -29,6 +30,17 @@ public class ReportController {
     @GetMapping
     public List<ReportDTO> getAllReports() {
         return mapper.toReportDTOs(reportService.getAllReports());
+    }
+
+    @GetMapping("/type")
+    public List<ReportDTO> getAllReportsByType(@RequestParam(name = "type") ReportType type, @RequestParam(name = "status") boolean closed) {
+        return mapper.toReportDTOs(reportService.getAllReportsByType(type, closed));
+    }
+
+    @GetMapping("/employee")
+    public List<ReportDTO> getAllReportsByType(@RequestParam(name = "employeeId") Long id) {
+        Employee employee = employeeService.getSingleEmployee(id);
+        return mapper.toReportDTOs(reportService.getAllReportsByEmployee(employee));
     }
 
     @PostMapping

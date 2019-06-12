@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface InstrumentReservationRepository extends JpaRepository<InstrumentReservation, Long> {
 
-    List<InstrumentReservation> findAllOrderByStartTimestamp();
+    List<InstrumentReservation> findAllByOrderByStartTimestamp();
 }

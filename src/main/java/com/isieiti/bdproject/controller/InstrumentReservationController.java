@@ -12,6 +12,7 @@ import com.isieiti.bdproject.service.InstrumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -36,12 +37,22 @@ public class InstrumentReservationController {
 
     @PostMapping
     public InstrumentReservationPostDTO postInstrumentReservation(@RequestBody InstrumentReservationPostDTO instrumentReservationPostDTO) {
-        Employee employee = employeeService.getSingleEmployee(instrumentReservationPostDTO.getEmployeeId());
-        Instrument instrument = instrumentService.findById(instrumentReservationPostDTO.getInstrumentId());
-        InstrumentReservation instrumentReservation = mapper.toInstrumentReservation(instrumentReservationPostDTO);
-        instrumentReservation.setEmployee(employee);
-        instrumentReservation.setInstrument(instrument);
-        return mapper.toInstrumentReservationPostDTO(instrumentReservationService.postInstrumentReservation(instrumentReservation));
+
+        //validation
+        LocalDateTime startTime, endTime;
+        startTime = instrumentReservationPostDTO.getStartTimestamp();
+        endTime = instrumentReservationPostDTO.getEndTimestamp();
+
+        if(endTime.isAfter(startTime) && endTime.isAfter(LocalDateTime.now()) && startTime.isAfter(LocalDateTime.now())){
+            Employee employee = employeeService.getSingleEmployee(instrumentReservationPostDTO.getEmployeeId());
+            Instrument instrument = instrumentService.findById(instrumentReservationPostDTO.getInstrumentId());
+            InstrumentReservation instrumentReservation = mapper.toInstrumentReservation(instrumentReservationPostDTO);
+            instrumentReservation.setEmployee(employee);
+            instrumentReservation.setInstrument(instrument);
+            return mapper.toInstrumentReservationPostDTO(instrumentReservationService.postInstrumentReservation(instrumentReservation));
+        }
+
+        return null;
     }
 
     @DeleteMapping

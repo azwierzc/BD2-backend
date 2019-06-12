@@ -3,6 +3,10 @@ package com.isieiti.bdproject.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Data
@@ -20,4 +24,7 @@ public class Room {
 
     @Column(name = "room_number")
     private int number;
+
+    @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "room", fetch = LAZY)
+    private List<RoomReservation> roomReservations;
 }

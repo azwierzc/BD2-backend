@@ -7,8 +7,12 @@ import javax.persistence.*;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
+
+import java.lang.invoke.LambdaConversionException;
 import java.util.List;
 
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -32,14 +36,14 @@ public class Employee {
     @JoinColumn(name = "ward_id")
     private Ward ward;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = ALL, fetch = LAZY)
     private List<Report> reports;
 
-    @OneToMany(cascade = ALL, orphanRemoval = true)
-    @JoinColumn(name = "employee_id")
+    @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "employee", fetch = LAZY)
+    //@JoinColumn(name = "employee_id")
     private List<InstrumentReservation> instrumentReservations;
 
-    @OneToMany(cascade = ALL, orphanRemoval = true)
-    @JoinColumn(name = "employee_id")
+    @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "employee", fetch = LAZY)
+    //@JoinColumn(name = "employee_id")
     private List<RoomReservation> roomReservations;
 }

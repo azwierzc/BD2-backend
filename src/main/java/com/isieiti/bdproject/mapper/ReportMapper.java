@@ -17,12 +17,14 @@ public abstract class ReportMapper {
             @Mapping(target = "employeeSurname", source = "report.employee.surname"),
             @Mapping(target = "employeeType", source = "report.employee.type"),
             @Mapping(target = "reportType", source = "report.type"),
+            @Mapping(target = "content", source = "report.content")
     })
     public abstract ReportDTO toReportDTO(Report report);
 
     @Mappings({
             @Mapping(target = "employeeId", source = "employee.id"),
-            @Mapping(target = "reportType", source = "type")
+            @Mapping(target = "reportType", source = "type"),
+            @Mapping(target = "content", source = "content")
     })
     public abstract ReportPostDTO toReportPostDTO(Report report);
 
@@ -30,7 +32,8 @@ public abstract class ReportMapper {
 
     @Mappings({
             @Mapping(target = "employee.id", source = "employeeId"),
-            @Mapping(target = "type", source = "reportType")
+            @Mapping(target = "type", source = "reportType"),
+            @Mapping(target = "content", source = "content")
     })
     public abstract Report toReport(ReportPostDTO reportPostDTO);
 }

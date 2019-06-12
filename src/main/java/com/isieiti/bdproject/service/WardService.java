@@ -24,4 +24,14 @@ public class WardService {
     public Ward findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ward", "id", id));
     }
+
+    @Transactional
+    public Ward addWard(Ward ward) {
+        return repository.save(ward);
+    }
+
+    @Transactional
+    public void deleteWard(Long id) {
+        repository.deleteById(id);
+    }
 }

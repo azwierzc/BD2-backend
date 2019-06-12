@@ -25,7 +25,7 @@ public class RoomReservationService {
 
     @Transactional(readOnly = true)
     public List<RoomReservation> getAllRoomReservations() {
-        return repository.findAllOrderByStartTimestamp().stream()
+        return repository.findAllByOrderByStartTimestamp().stream()
                 .filter(reservation -> reservation.getEndTimestamp().isAfter(now()))
                 .collect(toList());
     }

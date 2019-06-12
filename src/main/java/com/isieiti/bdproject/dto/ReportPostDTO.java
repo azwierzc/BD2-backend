@@ -12,6 +12,8 @@ public class ReportPostDTO {
 
     private LocalDateTime creationTimestamp;
 
+    private String content;
+
     private boolean closed;
 
     private Long employeeId;

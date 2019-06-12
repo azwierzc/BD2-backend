@@ -12,6 +12,7 @@ import com.isieiti.bdproject.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -36,12 +37,21 @@ public class RoomReservationController {
 
     @PostMapping
     public RoomReservationPostDTO postRoomReservation(@RequestBody RoomReservationPostDTO roomReservationPostDTO) {
-        Employee employee = employeeService.getSingleEmployee(roomReservationPostDTO.getEmployeeId());
-        Room room = roomService.findById(roomReservationPostDTO.getRoomId());
-        RoomReservation roomReservation = mapper.toRoomReservation(roomReservationPostDTO);
-        roomReservation.setEmployee(employee);
-        roomReservation.setRoom(room);
-        return mapper.toRoomReservationPostDTO(roomReservationService.saveRoomReservation(roomReservation));
+
+        //validation
+        LocalDateTime startTime, endTime;
+        startTime = roomReservationPostDTO.getStartTimestamp();
+        endTime = roomReservationPostDTO.getEndTimestamp();
+
+        if(endTime.isAfter(startTime) && endTime.isAfter(LocalDateTime.now()) && startTime.isAfter(LocalDateTime.now())){
+            Employee employee = employeeService.getSingleEmployee(roomReservationPostDTO.getEmployeeId());
+            Room room = roomService.findById(roomReservationPostDTO.getRoomId());
+            RoomReservation roomReservation = mapper.toRoomReservation(roomReservationPostDTO);
+            roomReservation.setEmployee(employee);
+            roomReservation.setRoom(room);
+            return mapper.toRoomReservationPostDTO(roomReservationService.saveRoomReservation(roomReservation));
+        }
+        return null;
     }
 
     @DeleteMapping("/{id}")

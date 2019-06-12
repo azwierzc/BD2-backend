@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity

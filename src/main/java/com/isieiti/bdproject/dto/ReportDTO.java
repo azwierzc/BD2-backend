@@ -15,6 +15,8 @@ public class ReportDTO {
 
     private boolean closed;
 
+    private String content;
+
     private String employeeName;
 
     private String employeeSurname;
