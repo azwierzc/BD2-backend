@@ -24,6 +24,5 @@ public class ReportPostDTO {
     @NotNull
     private Long employeeId;
 
-    @NotBlank
     private ReportType reportType;
 }
