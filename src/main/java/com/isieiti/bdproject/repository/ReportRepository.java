@@ -1,5 +1,6 @@
 package com.isieiti.bdproject.repository;
 
+import com.isieiti.bdproject.entity.Employee;
 import com.isieiti.bdproject.entity.Report;
 import com.isieiti.bdproject.enums.ReportType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,5 @@ import java.util.List;
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
     List<Report> findAllByTypeAndClosedOrderByCreationTimestamp(ReportType type, boolean closed);
+    List<Report> findAllByEmployeeOrderByCreationTimestamp(Employee employee);
 }

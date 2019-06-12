@@ -37,6 +37,12 @@ public class ReportController {
         return mapper.toReportDTOs(reportService.getAllReportsByType(type, closed));
     }
 
+    @GetMapping("/employee")
+    public List<ReportDTO> getAllReportsByType(@RequestParam(name = "employeeId") Long id) {
+        Employee employee = employeeService.getSingleEmployee(id);
+        return mapper.toReportDTOs(reportService.getAllReportsByEmployee(employee));
+    }
+
     @PostMapping
     public ReportPostDTO addReport(@RequestBody ReportPostDTO reportPostDTO) {
         Employee employee = employeeService.getSingleEmployee(reportPostDTO.getEmployeeId());
