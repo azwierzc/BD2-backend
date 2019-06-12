@@ -29,13 +29,11 @@ public class WardController {
 
     @PostMapping
     public WardDTO addWard(@RequestBody WardDTO wardDTO) {
-        List<Ward> wards = service.getAllWards();
-        for(Ward ward : wards){
-
-            if(ward.getName().equals(wardDTO.getName())){
-                return null;
+        service.getAllWards().forEach(ward -> {
+            if (ward.getName().equals(wardDTO.getName())) {
+                throw new IllegalArgumentException("Nie unikalna nazwa oddziału");
             }
-        }
+        });
         return mapper.toWardDTO(service.addWard(mapper.toWard(wardDTO)));
     }
 

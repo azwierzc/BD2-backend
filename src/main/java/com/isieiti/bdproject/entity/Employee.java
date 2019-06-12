@@ -36,7 +36,7 @@ public class Employee {
     @JoinColumn(name = "ward_id")
     private Ward ward;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = ALL, fetch = LAZY)
     private List<Report> reports;
 
     @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "employee", fetch = LAZY)
