@@ -9,6 +9,7 @@ import com.isieiti.bdproject.mapper.ReportMapper;
 import com.isieiti.bdproject.service.EmployeeService;
 import com.isieiti.bdproject.service.ReportService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class ReportController {
     }
 
     @GetMapping("/employee")
-    public List<ReportDTO> getAllReportsByType(@RequestParam(name = "employeeId") Long id) {
+    public List<ReportDTO> getAllReportsByEmployee(@RequestParam(name = "employeeId") Long id) {
         Employee employee = employeeService.getSingleEmployee(id);
         return mapper.toReportDTOs(reportService.getAllReportsByEmployee(employee));
     }
@@ -49,6 +50,12 @@ public class ReportController {
         Report report = mapper.toReport(reportPostDTO);
         report.setEmployee(employee);
         return mapper.toReportPostDTO(reportService.addReport(report));
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
+    @PutMapping("/{id}")
+    public void updateStatus(@PathVariable Long id){
+        reportService.changeStatus(id);
     }
 
     @DeleteMapping("/{id}")

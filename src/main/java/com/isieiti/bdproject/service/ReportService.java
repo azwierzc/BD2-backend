@@ -2,6 +2,7 @@ package com.isieiti.bdproject.service;
 
 import com.isieiti.bdproject.entity.Employee;
 import com.isieiti.bdproject.entity.Report;
+import com.isieiti.bdproject.entity.Ward;
 import com.isieiti.bdproject.enums.ReportType;
 import com.isieiti.bdproject.exception.ResourceNotFoundException;
 import com.isieiti.bdproject.repository.ReportRepository;
@@ -35,6 +36,12 @@ public class ReportService {
     @Transactional(readOnly = true)
     public List<Report> getAllReportsByEmployee(Employee employee) {
         return repository.findAllByEmployeeOrderByCreationTimestamp(employee);
+    }
+
+    @Transactional
+    public void changeStatus(Long id){
+       Report report = getSingleReport(id);
+       report.setClosed(true);
     }
 
     @Transactional

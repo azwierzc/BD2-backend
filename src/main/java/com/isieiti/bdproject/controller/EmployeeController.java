@@ -8,6 +8,7 @@ import com.isieiti.bdproject.mapper.EmployeeMapper;
 import com.isieiti.bdproject.service.EmployeeService;
 import com.isieiti.bdproject.service.WardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,11 +31,13 @@ public class EmployeeController {
         return mapper.toEmployeeDTOs(service.getAllEmployees());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
     @PostMapping
     public EmployeePostDTO postEmployee(@RequestBody EmployeePostDTO employeeDTO) {
         return mapper.toEmployeePostDTO(service.saveEmployee(mapper.toEmployee(employeeDTO)));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id) {
         service.deleteEmployee(id);

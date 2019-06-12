@@ -5,6 +5,7 @@ import com.isieiti.bdproject.entity.Ward;
 import com.isieiti.bdproject.mapper.WardMapper;
 import com.isieiti.bdproject.service.WardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class WardController {
         return mapper.toWardDTO(service.findById(id));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public WardDTO addWard(@RequestBody WardDTO wardDTO) {
         service.getAllWards().forEach(ward -> {
@@ -37,6 +39,7 @@ public class WardController {
         return mapper.toWardDTO(service.addWard(mapper.toWard(wardDTO)));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteWard(@PathVariable Long id) {
         service.deleteWard(id);

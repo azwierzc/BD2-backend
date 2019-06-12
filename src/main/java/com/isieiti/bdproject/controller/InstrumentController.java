@@ -4,6 +4,7 @@ import com.isieiti.bdproject.dto.InstrumentDTO;
 import com.isieiti.bdproject.mapper.InstrumentMapper;
 import com.isieiti.bdproject.service.InstrumentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,11 +28,13 @@ public class InstrumentController {
         return mapper.toInstrumentDTO(service.findById(id));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
     @PostMapping
     public InstrumentDTO postInstrument(@RequestBody InstrumentDTO instrumentDTO) {
         return mapper.toInstrumentDTO(service.saveInstrument(mapper.toInstrument(instrumentDTO)));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
     @DeleteMapping("/{id}")
     public void deleteInstrument(@PathVariable Long id) {
         service.deleteInstrument(id);
