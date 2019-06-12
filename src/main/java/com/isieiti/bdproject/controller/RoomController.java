@@ -30,13 +30,13 @@ public class RoomController {
         return mapper.toRoomDTO(service.findById(id));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
+    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @PostMapping
     public RoomDTO addRoom(@RequestBody @Valid RoomDTO dto) {
         return mapper.toRoomDTO(service.addRoom(mapper.toRoom(dto)));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
+    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @DeleteMapping("/{id}")
     public void deleteRoom(@PathVariable Long id) {
         service.deleteRoom(id);

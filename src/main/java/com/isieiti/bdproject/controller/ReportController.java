@@ -53,7 +53,7 @@ public class ReportController {
         return mapper.toReportPostDTO(reportService.addReport(report));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
+    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @PutMapping("/{id}")
     public void updateStatus(@PathVariable Long id){
         reportService.changeStatus(id);

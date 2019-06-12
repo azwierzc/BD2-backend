@@ -32,13 +32,13 @@ public class EmployeeController {
         return mapper.toEmployeeDTOs(service.getAllEmployees());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
+    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @PostMapping
     public EmployeePostDTO postEmployee(@RequestBody @Valid EmployeePostDTO employeeDTO) {
         return mapper.toEmployeePostDTO(service.saveEmployee(mapper.toEmployee(employeeDTO)));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
+    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id) {
         service.deleteEmployee(id);

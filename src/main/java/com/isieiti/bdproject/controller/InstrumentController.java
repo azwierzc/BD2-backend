@@ -29,7 +29,7 @@ public class InstrumentController {
         return mapper.toInstrumentDTO(service.findById(id));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
+    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @PostMapping
     public InstrumentDTO postInstrument(@RequestBody @Valid InstrumentDTO instrumentDTO) {
         service.getAll().forEach(instrument -> {
@@ -40,7 +40,7 @@ public class InstrumentController {
         return mapper.toInstrumentDTO(service.saveInstrument(mapper.toInstrument(instrumentDTO)));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
+    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @DeleteMapping("/{id}")
     public void deleteInstrument(@PathVariable Long id) {
         service.deleteInstrument(id);
