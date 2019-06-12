@@ -17,8 +17,7 @@ public abstract class ReportMapper {
             @Mapping(target = "employeeSurname", source = "report.employee.surname"),
             @Mapping(target = "employeeType", source = "report.employee.type"),
             @Mapping(target = "reportType", source = "report.type"),
-            @Mapping(target = "content", source = "report.content"),
-            @Mapping(target = "employeeId", source = "report.employee.id")
+            @Mapping(target = "employeeId", source = "report.employee.id"),
     })
     public abstract ReportDTO toReportDTO(Report report);
 
