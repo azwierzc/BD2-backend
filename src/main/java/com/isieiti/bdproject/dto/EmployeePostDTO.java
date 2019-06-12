@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class EmployeePostDTO {
 
-    @NotNull
     private Long id;
 
     @NotBlank

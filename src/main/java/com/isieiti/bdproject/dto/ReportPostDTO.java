@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Data
 public class ReportPostDTO {
 
-    @NotNull
     private Long id;
 
     @NotNull

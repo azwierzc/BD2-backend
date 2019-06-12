@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class RoomDTO {
 
-    @NotNull
     private Long id;
 
     private boolean avaliable;

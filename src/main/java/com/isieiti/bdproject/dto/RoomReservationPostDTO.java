@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Data
 public class RoomReservationPostDTO {
 
-    @NotNull
     private Long id;
 
     @NotNull
