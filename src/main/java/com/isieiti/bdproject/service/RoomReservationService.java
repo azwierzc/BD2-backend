@@ -32,6 +32,8 @@ public class RoomReservationService {
 
     @Transactional
     public RoomReservation saveRoomReservation(RoomReservation roomReservation) {
+        roomReservation.getEndTimestamp().plusHours(2);
+        roomReservation.getStartTimestamp().plusHours(2);
         return repository.save(roomReservation);
     }
 

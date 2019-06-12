@@ -46,6 +46,7 @@ public class ReportService {
 
     @Transactional
     public Report addReport(Report report) {
+        report.setClosed(false);
         return repository.save(report);
     }
 
