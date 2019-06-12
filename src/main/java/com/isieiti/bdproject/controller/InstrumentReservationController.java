@@ -53,7 +53,8 @@ public class InstrumentReservationController {
             return mapper.toInstrumentReservationPostDTO(instrumentReservationService.postInstrumentReservation(instrumentReservation));
         }
 
-        return null;
+
+        throw new IllegalArgumentException("Nieprawidłowe godziny rezerwacji!");
     }
 
     @DeleteMapping("/{id}")

@@ -52,7 +52,8 @@ public class RoomReservationController {
             roomReservation.setRoom(room);
             return mapper.toRoomReservationPostDTO(roomReservationService.saveRoomReservation(roomReservation));
         }
-        return null;
+
+        throw new IllegalArgumentException("Nieprawidłowe godziny rezerwacji!");
     }
 
     @DeleteMapping("/{id}")
