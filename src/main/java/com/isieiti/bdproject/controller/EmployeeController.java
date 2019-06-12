@@ -31,7 +31,7 @@ public class EmployeeController {
         return mapper.toEmployeeDTOs(service.getAllEmployees());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN' AND hasAuthority('MAINTAINER'))")
+    @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
     @PostMapping
     public EmployeePostDTO postEmployee(@RequestBody EmployeePostDTO employeeDTO) {
         return mapper.toEmployeePostDTO(service.saveEmployee(mapper.toEmployee(employeeDTO)));
