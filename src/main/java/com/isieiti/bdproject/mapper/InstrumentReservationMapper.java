@@ -19,7 +19,8 @@ public abstract class InstrumentReservationMapper {
             @Mapping(target = "employeeType", source = "employee.type"),
             @Mapping(target = "instrumentId", source = "instrument.id"),
             @Mapping(target = "serialNumber", source = "instrument.serialNumber"),
-            @Mapping(target = "instrumentType", source = "instrument.type")
+            @Mapping(target = "instrumentType", source = "instrument.type"),
+            @Mapping(target = "employeePrefix", source = "employee.prefix")
     })
     public abstract InstrumentReservationDTO toInstrumentReservationDTO(InstrumentReservation instrumentReservation);
 

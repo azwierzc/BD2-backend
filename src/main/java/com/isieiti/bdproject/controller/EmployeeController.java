@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class EmployeeController {
 
     @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
     @PostMapping
-    public EmployeePostDTO postEmployee(@RequestBody EmployeePostDTO employeeDTO) {
+    public EmployeePostDTO postEmployee(@RequestBody @Valid EmployeePostDTO employeeDTO) {
         return mapper.toEmployeePostDTO(service.saveEmployee(mapper.toEmployee(employeeDTO)));
     }
 

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,7 @@ public class WardController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
-    public WardDTO addWard(@RequestBody WardDTO wardDTO) {
+    public WardDTO addWard(@RequestBody @Valid WardDTO wardDTO) {
         service.getAllWards().forEach(ward -> {
             if (ward.getName().equals(wardDTO.getName())) {
                 throw new IllegalArgumentException("Nie unikalna nazwa oddziału");

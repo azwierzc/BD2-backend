@@ -19,7 +19,8 @@ public abstract class RoomReservationMapper {
             @Mapping(target = "employeeType", source = "roomReservation.employee.type"),
             @Mapping(target = "roomId", source = "roomReservation.room.id"),
             @Mapping(target = "roomNumber", source = "roomReservation.room.number"),
-            @Mapping(target = "roomType", source = "roomReservation.room.type")
+            @Mapping(target = "roomType", source = "roomReservation.room.type"),
+            @Mapping(target = "employeePrefix", source = "roomReservation.employee.prefix")
     })
     public abstract RoomReservationDTO toRoomReservationDTO(RoomReservation roomReservation);
 

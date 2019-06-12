@@ -12,6 +12,7 @@ import com.isieiti.bdproject.service.InstrumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class InstrumentReservationController {
     }
 
     @PostMapping
-    public InstrumentReservationPostDTO postInstrumentReservation(@RequestBody InstrumentReservationPostDTO instrumentReservationPostDTO) {
+    public InstrumentReservationPostDTO postInstrumentReservation(@RequestBody @Valid InstrumentReservationPostDTO instrumentReservationPostDTO) {
 
         //validation
         LocalDateTime startTime, endTime;

@@ -20,6 +20,8 @@ public class InstrumentReservationDTO {
 
     private String employeeSurname;
 
+    private String employeePrefix;
+
     private MedicalEmployeeRole employeeType;
 
     private Long instrumentId;

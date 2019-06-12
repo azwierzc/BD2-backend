@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,12 @@ public class InstrumentController {
 
     @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
     @PostMapping
-    public InstrumentDTO postInstrument(@RequestBody InstrumentDTO instrumentDTO) {
+    public InstrumentDTO postInstrument(@RequestBody @Valid InstrumentDTO instrumentDTO) {
+        service.getAll().forEach(instrument -> {
+            if (instrument.getSerialNumber().equals(instrumentDTO.getSerialNumber())) {
+                throw new IllegalArgumentException("Nie unikalny numer seryjny!");
+            }
+        });
         return mapper.toInstrumentDTO(service.saveInstrument(mapper.toInstrument(instrumentDTO)));
     }
 

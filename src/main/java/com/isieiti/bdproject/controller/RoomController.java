@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ADMIN') AND hasAuthority('MAINTAINER')")
     @PostMapping
-    public RoomDTO addRoom(@RequestBody RoomDTO dto) {
+    public RoomDTO addRoom(@RequestBody @Valid RoomDTO dto) {
         return mapper.toRoomDTO(service.addRoom(mapper.toRoom(dto)));
     }
 

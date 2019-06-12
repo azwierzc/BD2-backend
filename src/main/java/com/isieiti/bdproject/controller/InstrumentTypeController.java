@@ -6,6 +6,7 @@ import com.isieiti.bdproject.service.InstrumentTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class InstrumentTypeController {
     }
 
     @PostMapping
-    public InstrumentTypeDTO addWard(@RequestBody InstrumentTypeDTO instrumentTypeDTO) {
+    public InstrumentTypeDTO addWard(@RequestBody @Valid InstrumentTypeDTO instrumentTypeDTO) {
         return mapper.toInstrumentTypeDTO(service.addInstrumentType(mapper.toInstrumentType(instrumentTypeDTO)));
     }
 

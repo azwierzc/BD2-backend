@@ -12,6 +12,7 @@ import com.isieiti.bdproject.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class RoomReservationController {
     }
 
     @PostMapping
-    public RoomReservationPostDTO postRoomReservation(@RequestBody RoomReservationPostDTO roomReservationPostDTO) {
+    public RoomReservationPostDTO postRoomReservation(@RequestBody @Valid RoomReservationPostDTO roomReservationPostDTO) {
 
         //validation
         LocalDateTime startTime, endTime;
