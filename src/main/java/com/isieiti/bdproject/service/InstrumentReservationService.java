@@ -1,5 +1,6 @@
 package com.isieiti.bdproject.service;
 
+import com.isieiti.bdproject.entity.Instrument;
 import com.isieiti.bdproject.entity.InstrumentReservation;
 import com.isieiti.bdproject.exception.ResourceNotFoundException;
 import com.isieiti.bdproject.repository.InstrumentReservationRepository;
@@ -31,12 +32,15 @@ public class InstrumentReservationService {
                 .collect(toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<InstrumentReservation> getAllInstrumentReservationsByInstrument(Instrument instrument) {
+        return repository.findAllByInstrument(instrument).stream()
+                .filter(reservation -> reservation.getEndTimestamp().isAfter(LocalDateTime.now()))
+                .collect(toList());
+    }
+
     @Transactional
     public InstrumentReservation postInstrumentReservation(InstrumentReservation instrumentReservation) {
-        LocalDateTime startTime = instrumentReservation.getStartTimestamp();
-        LocalDateTime endTime = instrumentReservation.getEndTimestamp();
-        instrumentReservation.setStartTimestamp(startTime.plusHours(2));
-        instrumentReservation.setEndTimestamp(endTime.plusHours(2));
         return repository.save(instrumentReservation);
     }
 

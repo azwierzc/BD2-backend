@@ -8,6 +8,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface RoomMapper {
+
     List<RoomDTO> toRoomDTOs(List<Room> rooms);
 
     RoomDTO toRoomDTO(Room room);

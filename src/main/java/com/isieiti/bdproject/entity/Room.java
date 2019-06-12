@@ -1,11 +1,13 @@
 package com.isieiti.bdproject.entity;
 
+import com.isieiti.bdproject.enums.RoomType;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -20,7 +22,8 @@ public class Room {
     @Column(name = "is_avaliable")
     private boolean avaliable;
 
-    private String type;
+    @Enumerated(STRING)
+    private RoomType type;
 
     @Column(name = "room_number")
     private int number;
