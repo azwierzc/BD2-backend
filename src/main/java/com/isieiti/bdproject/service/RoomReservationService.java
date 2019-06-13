@@ -31,12 +31,16 @@ public class RoomReservationService {
                 .collect(toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<RoomReservation> getAllRoomReservationsByRoom(Long id) {
+        return repository.findAllByRoomId(id).stream()
+                .filter(reservation -> reservation.getEndTimestamp().isAfter(now()))
+                .collect(toList());
+    }
+
+
     @Transactional
     public RoomReservation saveRoomReservation(RoomReservation roomReservation) {
-        LocalDateTime startTime = roomReservation.getStartTimestamp();
-        LocalDateTime endTime = roomReservation.getEndTimestamp();
-        roomReservation.setStartTimestamp(startTime.plusHours(2));
-        roomReservation.setEndTimestamp(endTime.plusHours(2));
         return repository.save(roomReservation);
     }
 

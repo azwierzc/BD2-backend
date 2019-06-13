@@ -48,19 +48,11 @@ public class InstrumentReservationController {
         LocalDateTime startTime, endTime;
         startTime = instrumentReservationPostDTO.getStartTimestamp();
         endTime = instrumentReservationPostDTO.getEndTimestamp();
-       // Instrument instrument = instrumentService.findById(instrumentReservationPostDTO.getInstrumentId());
-        //List<InstrumentReservation> currentReservation = instrumentReservationService.getAllInstrumentReservationsByInstrument(instrument);
 
-        if (endTime.isAfter(startTime) && endTime.isAfter(LocalDateTime.now()) && startTime.isAfter(LocalDateTime.now())) {
-            Employee employee = employeeService.getSingleEmployee(instrumentReservationPostDTO.getEmployeeId());
-            Instrument instrument2 = instrumentService.findById(instrumentReservationPostDTO.getInstrumentId());
-            InstrumentReservation instrumentReservation = mapper.toInstrumentReservation(instrumentReservationPostDTO);
-            instrumentReservation.setEmployee(employee);
-            instrumentReservation.setInstrument(instrument2);
-            return mapper.toInstrumentReservationPostDTO(instrumentReservationService.postInstrumentReservation(instrumentReservation));
-        }
+        List<InstrumentReservation> currentReservations = instrumentReservationService.
+                getAllInstrumentReservationsByInstrument(instrumentReservationPostDTO.getInstrumentId());
 
-       /* currentReservation.forEach(reservation -> {
+        currentReservations.forEach(reservation -> {
             if ((((startTime.isEqual(reservation.getStartTimestamp())) || (startTime.isAfter(reservation.getStartTimestamp())))
                     && ((startTime.isEqual(reservation.getEndTimestamp())) || (startTime.isBefore(reservation.getEndTimestamp()))))
                     || ((((endTime.isEqual(reservation.getStartTimestamp())) || (endTime.isAfter(reservation.getStartTimestamp()))))
@@ -68,9 +60,19 @@ public class InstrumentReservationController {
 
                 throw new IllegalArgumentException("Rezewacja w wybranym terminie jest niemożliwa.");
             }
-        });*/
+        });
 
-        throw new IllegalArgumentException("Nieprawidłowe godziny rezerwacji!");
+        if (!(endTime.isAfter(startTime) && endTime.isAfter(LocalDateTime.now()) && startTime.isAfter(LocalDateTime.now()))) {
+            throw new IllegalArgumentException("Nieprawidłowe godziny rezerwacji!");
+        }
+
+        Employee employee = employeeService.getSingleEmployee(instrumentReservationPostDTO.getEmployeeId());
+        Instrument instrument2 = instrumentService.findById(instrumentReservationPostDTO.getInstrumentId());
+        InstrumentReservation instrumentReservation = mapper.toInstrumentReservation(instrumentReservationPostDTO);
+        instrumentReservation.setEmployee(employee);
+        instrumentReservation.setInstrument(instrument2);
+        return mapper.toInstrumentReservationPostDTO(instrumentReservationService.postInstrumentReservation(instrumentReservation));
+
     }
 
     @DeleteMapping("/{id}")

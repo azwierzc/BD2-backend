@@ -33,8 +33,8 @@ public class InstrumentReservationService {
     }
 
     @Transactional(readOnly = true)
-    public List<InstrumentReservation> getAllInstrumentReservationsByInstrument(Instrument instrument) {
-        return repository.findAllByInstrument(instrument).stream()
+    public List<InstrumentReservation> getAllInstrumentReservationsByInstrument(Long id) {
+        return repository.findAllByInstrumentId(id).stream()
                 .filter(reservation -> reservation.getEndTimestamp().isAfter(LocalDateTime.now()))
                 .collect(toList());
     }

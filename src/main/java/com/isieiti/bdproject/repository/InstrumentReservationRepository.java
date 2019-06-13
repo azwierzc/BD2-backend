@@ -12,5 +12,5 @@ public interface InstrumentReservationRepository extends JpaRepository<Instrumen
 
     List<InstrumentReservation> findAllByOrderByStartTimestamp();
 
-    List<InstrumentReservation> findAllByInstrument(Instrument instrument);
+    List<InstrumentReservation> findAllByInstrumentId(Long id);
 }

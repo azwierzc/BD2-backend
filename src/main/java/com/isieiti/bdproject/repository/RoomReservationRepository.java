@@ -10,4 +10,6 @@ import java.util.List;
 public interface RoomReservationRepository extends JpaRepository<RoomReservation, Long> {
 
     List<RoomReservation> findAllByOrderByStartTimestamp();
+
+    List<RoomReservation> findAllByRoomId(Long id);
 }

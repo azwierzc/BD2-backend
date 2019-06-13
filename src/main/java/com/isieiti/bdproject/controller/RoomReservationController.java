@@ -39,21 +39,38 @@ public class RoomReservationController {
     @PostMapping
     public RoomReservationPostDTO postRoomReservation(@RequestBody @Valid RoomReservationPostDTO roomReservationPostDTO) {
 
+        LocalDateTime startTimeVer = roomReservationPostDTO.getStartTimestamp();
+        LocalDateTime endTimeVer = roomReservationPostDTO.getEndTimestamp();
+        roomReservationPostDTO.setStartTimestamp(startTimeVer.plusHours(2));
+        roomReservationPostDTO.setEndTimestamp(endTimeVer.plusHours(2));
+
         //validation
         LocalDateTime startTime, endTime;
         startTime = roomReservationPostDTO.getStartTimestamp();
         endTime = roomReservationPostDTO.getEndTimestamp();
 
-        if(endTime.isAfter(startTime) && endTime.isAfter(LocalDateTime.now()) && startTime.isAfter(LocalDateTime.now())){
-            Employee employee = employeeService.getSingleEmployee(roomReservationPostDTO.getEmployeeId());
-            Room room = roomService.findById(roomReservationPostDTO.getRoomId());
-            RoomReservation roomReservation = mapper.toRoomReservation(roomReservationPostDTO);
-            roomReservation.setEmployee(employee);
-            roomReservation.setRoom(room);
-            return mapper.toRoomReservationPostDTO(roomReservationService.saveRoomReservation(roomReservation));
-        }
+        List<RoomReservation> currentReservations = roomReservationService
+                .getAllRoomReservationsByRoom(roomReservationPostDTO.getRoomId());
 
-        throw new IllegalArgumentException("Nieprawidłowe godziny rezerwacji!");
+        currentReservations.forEach(reservation -> {
+            if ((((startTime.isEqual(reservation.getStartTimestamp())) || (startTime.isAfter(reservation.getStartTimestamp())))
+                    && ((startTime.isEqual(reservation.getEndTimestamp())) || (startTime.isBefore(reservation.getEndTimestamp()))))
+                    || ((((endTime.isEqual(reservation.getStartTimestamp())) || (endTime.isAfter(reservation.getStartTimestamp()))))
+                    && ((endTime.isEqual(reservation.getEndTimestamp())) || (endTime.isBefore(reservation.getEndTimestamp()))))) {
+
+                throw new IllegalArgumentException("Rezewacja w wybranym terminie jest niemożliwa.");
+            }
+        });
+
+        if (!(endTime.isAfter(startTime) && endTime.isAfter(LocalDateTime.now()) && startTime.isAfter(LocalDateTime.now()))) {
+            throw new IllegalArgumentException("Nieprawidłowe godziny rezerwacji!");
+        }
+        Employee employee = employeeService.getSingleEmployee(roomReservationPostDTO.getEmployeeId());
+        Room room = roomService.findById(roomReservationPostDTO.getRoomId());
+        RoomReservation roomReservation = mapper.toRoomReservation(roomReservationPostDTO);
+        roomReservation.setEmployee(employee);
+        roomReservation.setRoom(room);
+        return mapper.toRoomReservationPostDTO(roomReservationService.saveRoomReservation(roomReservation));
     }
 
     @DeleteMapping("/{id}")
