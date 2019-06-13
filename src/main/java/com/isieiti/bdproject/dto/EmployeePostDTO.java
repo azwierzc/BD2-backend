@@ -18,8 +18,7 @@ public class EmployeePostDTO {
     private String surname;
 
     private String prefix;
-
-    @NotNull
+    
     private MedicalEmployeeRole type;
 
     @NotNull
