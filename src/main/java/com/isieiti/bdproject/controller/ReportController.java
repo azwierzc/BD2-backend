@@ -53,12 +53,12 @@ public class ReportController {
         return mapper.toReportPostDTO(reportService.addReport(report));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @PutMapping("/{id}")
-    public void updateStatus(@PathVariable Long id){
+    public void updateStatus(@PathVariable Long id) {
         reportService.changeStatus(id);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') OR hasAuthority('MAINTAINER')")
     @DeleteMapping("/{id}")
     public void deleteReport(@PathVariable Long id) {
         reportService.deleteReport(id);
